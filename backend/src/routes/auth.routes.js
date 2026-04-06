@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/User.model.js";
-
+import { protect } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 const generateToken = (id) =>
@@ -73,6 +73,11 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
+});
+
+// GET /api/auth/me
+router.get("/me", protect, async (req, res) => {
+  res.json({ success: true, data: req.user });
 });
 
 export default router;
