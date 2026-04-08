@@ -34,3 +34,34 @@ router.post("/:videoId", protect, async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
+// PUT /api/comments/:videoId/:commentId - Edit comment
+router.put("/:videoId/:commentId", protect, async (req, res) => {
+  try {
+    const { text } = req.body;
+    const video = await Video.findById(req.params.videoId);
+    if (!video)
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found" });
+
+    const comment = video.comments.id(req.params.commentId);
+    if (!comment)
+      return res
+        .status(404)
+        .json({ success: false, message: "Comment not found" });
+    if (comment.userId.toString() !== req.user._id.toString()) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not authorized" });
+    }
+
+    comment.text = text;
+    await video.save();
+    res.json({ success: true, data: comment });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+export default router;
