@@ -16,9 +16,17 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/channels", channelRoutes);
+app.use("/api/comments", commentRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "Youtube Clone API is running" });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(status).json({ success: false, message });
 });
 
 const PORT = process.env.PORT || 5001;
