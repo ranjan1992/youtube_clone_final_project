@@ -29,4 +29,27 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET /api/videos/:id - Get single video
+router.get("/:id", async (req, res) => {
+  try {
+    const video = await Video.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { views: 1 } },
+      { new: true },
+    )
+      .populate("channelId", "channelName channelAvatar subscribers")
+      .populate("uploader", "username avatar")
+      .populate("comments.userId", "username avatar");
+
+    if (!video)
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found" });
+
+    res.json({ success: true, data: video });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 export default router;
