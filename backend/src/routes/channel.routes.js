@@ -57,4 +57,14 @@ router.post("/", protect, async (req, res) => {
   }
 });
 
+// GET /api/channels/user/my-channels - Get logged in user's channels
+router.get("/user/my-channels", protect, async (req, res) => {
+  try {
+    const channels = await Channel.find({ owner: req.user._id });
+    res.json({ success: true, data: channels });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 export default router;
