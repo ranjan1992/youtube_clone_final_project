@@ -176,4 +176,34 @@ router.post("/:id/like", protect, async (req, res) => {
   }
 });
 
+// POST /api/videos/:id/dislike - Dislike a video (protected)
+router.post("/:id/dislike", protect, async (req, res) => {
+  try {
+    const video = await Video.findById(req.params.id);
+    if (!video)
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found" });
+
+    const userId = req.user._id;
+    const alreadyDisliked = video.dislikes.includes(userId);
+
+    if (alreadyDisliked) {
+      video.dislikes.pull(userId);
+    } else {
+      video.dislikes.push(userId);
+      video.likes.pull(userId);
+    }
+
+    await video.save();
+    res.json({
+      success: true,
+      likes: video.likes.length,
+      dislikes: video.dislikes.length,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 export default router;
