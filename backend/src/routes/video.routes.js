@@ -122,4 +122,28 @@ router.put("/:id", protect, async (req, res) => {
   }
 });
 
+// DELETE /api/videos/:id - Delete video (protected)
+router.delete("/:id", protect, async (req, res) => {
+  try {
+    const video = await Video.findOne({
+      _id: req.params.id,
+      uploader: req.user._id,
+    });
+    if (!video)
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found or not authorized" });
+
+    // Remove from channel
+    await Channel.findByIdAndUpdate(video.channelId, {
+      $pull: { videos: video._id },
+    });
+    await video.deleteOne();
+
+    res.json({ success: true, message: "Video deleted" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 export default router;
