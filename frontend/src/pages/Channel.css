@@ -1,0 +1,196 @@
+.channel-page { padding: 16px 0; }
+
+.no-channel {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-secondary);
+}
+.no-channel h2 { font-size: 22px; margin-bottom: 10px; color: var(--text-primary); }
+
+.no-videos {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+/* Buttons */
+.primary-btn {
+  padding: 8px 20px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.primary-btn:hover { opacity: 0.85; }
+
+.secondary-btn {
+  padding: 8px 20px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 20px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+}
+.secondary-btn:hover { background: var(--bg-hover); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 32px;
+  width: 90%;
+  max-width: 460px;
+}
+
+.modal h2 { font-size: 20px; margin-bottom: 20px; }
+
+.channel-avatar-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #ff0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0 auto 20px;
+}
+
+.modal-form { display: flex; flex-direction: column; gap: 16px; }
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Channel Banner */
+.channel-banner {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  padding: 32px 24px;
+  margin-bottom: 24px;
+}
+
+.channel-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.channel-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #ff0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.channel-info h1 { font-size: 24px; }
+.channel-handle { color: var(--text-secondary); font-size: 14px; margin: 4px 0; }
+.channel-stats { font-size: 13px; color: var(--text-secondary); }
+.channel-desc { font-size: 14px; margin-top: 8px; color: var(--text-secondary); max-width: 500px; }
+
+/* Channel Toolbar */
+.channel-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.channel-toolbar h3 { font-size: 18px; }
+
+/* Video Form */
+.video-form {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.video-form h3 { font-size: 18px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 13px; color: var(--text-secondary); }
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 9px 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus { border-color: #3ea6ff; }
+
+/* Channel videos grid */
+.channel-videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.channel-video-item { display: flex; flex-direction: column; gap: 8px; }
+
+.video-item-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.ctrl-btn {
+  padding: 5px 12px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 6px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.ctrl-btn:hover { background: var(--bg-hover); }
+.ctrl-btn.delete:hover { border-color: #ff6b6b; color: #ff6b6b; }
+
+.cancel-btn {
+  padding: 8px 16px;
+  background: none;
+  color: var(--text-primary);
+  border-radius: 20px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+}
+.cancel-btn:hover { background: var(--bg-hover); }
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .channel-info { flex-direction: column; text-align: center; }
+}
